@@ -1,0 +1,27 @@
+bool CheckSub(int arr[], int n)
+{
+    if (n < 3)return 0;
+    
+    int minarr[n]={arr[0]};
+    for(int i=1; i<n; i++){
+        minarr[i]=min(arr[i],minarr[i-1]);
+    }//gives min elemnt till that index
+    
+    stack<int> s;
+    
+    for(int i=n-1; i>=0; i--){
+        
+        if(arr[i]>=minarr[i]){
+            
+            while(s.size()>0 && s.top()<=minarr[i]){s.pop();}
+            if(s.size()){
+                
+                if(arr[i]>s.top())return true;
+                else s.push(arr[i]);
+                
+            }else s.push(arr[i]);
+            
+        }
+    }
+   return false;
+}
